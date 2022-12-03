@@ -12,12 +12,12 @@ import java.util.List;
 //Add required annotations
 
 @RestController
-@RequestMapping("book")
+//@RequestMapping("book")
 public class BookController {
 
     @Autowired
     BookService bookService;
-    @PostMapping("createBook")
+    @PostMapping("book")
     public  ResponseEntity<String> createBook(@RequestBody() Book book){
         bookService.createBook(book);
         return new ResponseEntity<>("Success",HttpStatus.CREATED);
