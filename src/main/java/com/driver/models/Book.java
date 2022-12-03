@@ -7,9 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
-@Getter
-@Setter
-@RequiredArgsConstructor
+@Data
 @Entity
 public class Book {
 

@@ -8,9 +8,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.util.Date;
 
-@Getter
-@RequiredArgsConstructor
-@Setter
+
+@Data
 @Entity
 public class Student {
 

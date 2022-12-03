@@ -8,9 +8,9 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
-@Getter
-@RequiredArgsConstructor
-@Setter
+
+@Data
+
 @Entity
 public class Transaction {
 
