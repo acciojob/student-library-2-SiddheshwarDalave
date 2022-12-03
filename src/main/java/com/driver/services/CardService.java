@@ -23,7 +23,7 @@ public class CardService {
         Card card = new Card();
         card.setId(student.getId());
         card.setCreatedOn(new Date());
-        card.setCardStatus(ACTIVATED);
+       // card.setCardStatus(ACTIVATED);
         cardRepository3.save(card);
         return card;
     }
