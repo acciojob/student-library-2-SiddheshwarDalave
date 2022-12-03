@@ -35,12 +35,14 @@ public class StudentService {
 
     public void updateStudent(Student student){
         student.setUpdatedOn(new Date());
+
         studentRepository4.updateStudentDetails(student);
 
     }
 
     public void deleteStudent(int id){
         studentRepository4.deleteCustom(id);
+        cardService4.deactivateCard(id);
         //Delete student and deactivate corresponding card
     }
 }

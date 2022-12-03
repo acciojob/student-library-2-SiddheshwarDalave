@@ -15,7 +15,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import static com.driver.models.CardStatus.ACTIVATED;
 import static com.driver.models.CardStatus.DEACTIVATED;
+import static com.driver.models.TransactionStatus.SUCCESSFUL;
 
 @Service
 public class TransactionService {
@@ -61,26 +63,39 @@ public class TransactionService {
                 throw new Error("Card is invalid");
             }
             if(card.getBooks().size()>max_allowed_books){
+                card.setCardStatus(DEACTIVATED);
                 throw new Error("Book limit has reached for this card");
             }
-            Transaction transaction=new Transaction();
-            transaction.setTransactionId(UUID.randomUUID().toString());
-            transaction.setBook(book);
-            transaction.setCard(card);
-            transaction.setIssueOperation(true);
-            transaction.setTransactionDate(new Date());
-            book.setAvailable(false);
-            transactionRepository5.save(transaction);
 
-            return transaction.getTransactionId();
         }
+        Book book=bookRepository5.findById(bookId).get();
+        Card card=cardRepository5.findById(cardId).get();
 
-        return "Transition failed." ;//return transactionId instead
+
+
+        Transaction transaction=new Transaction();
+        transaction.setFineAmount(0);
+        transaction.setTransactionId(UUID.randomUUID().toString());
+        transaction.setBook(book);
+        transaction.setCard(card);
+        transaction.setIssueOperation(true);
+        transaction.setTransactionDate(new Date());
+        transaction.setTransactionStatus(SUCCESSFUL);
+
+        transactionRepository5.save(transaction);
+
+        book.getTransactions().add(transaction);
+
+
+        book.setAvailable(false);
+        return transaction.getTransactionId();
+
+        //return "Transition failed." ;//return transactionId instead
     }
 
     public Transaction returnBook(int cardId, int bookId) throws Exception{
 
-        List<Transaction> transactions = transactionRepository5.find(cardId, bookId,TransactionStatus.SUCCESSFUL, true);
+        List<Transaction> transactions = transactionRepository5.find(cardId, bookId, SUCCESSFUL, true);
         Transaction transaction = transactions.get(transactions.size()-1);
 
         Date d1=transaction.getTransactionDate();
@@ -92,12 +107,18 @@ public class TransactionService {
         }
         Book book=bookRepository5.findById(bookId).get();
         book.setAvailable(true);
+        bookRepository5.save(book);
+
+        Card card=cardRepository5.findById(cardId).get();
+        card.setCardStatus(ACTIVATED);
+
+
 
         //for the given transaction calculate the fine amount considering the book has been returned exactly when this function is called
         //make the book available for other users
         //make a new transaction for return book which contains the fine amount as well
 
-
+        //transactionRepository5.delete(transaction);
 
         Transaction returnBookTransaction  = new Transaction();
 

@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @Getter
 @Setter
-
+@RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
 public class Book {
@@ -41,7 +41,5 @@ public class Book {
     @JsonIgnoreProperties("book")
     private List<Transaction> transactions;
 
-    public Book() {
-    }
 }
 
