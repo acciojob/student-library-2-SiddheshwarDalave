@@ -9,7 +9,9 @@ import javax.persistence.*;
 import java.util.Date;
 @Data
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Setter
 @Entity
 public class Student {
@@ -25,8 +27,8 @@ public class Student {
 
     private String country;
 
-    public Student() {
-    }
+//    public Student() {
+//    }
 
     // alter table student add foreign key constraint card references Card(id)
 

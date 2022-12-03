@@ -11,6 +11,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Setter
 @Entity
 public class Transaction {
