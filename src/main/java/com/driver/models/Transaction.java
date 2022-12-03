@@ -9,8 +9,9 @@ import java.util.Date;
 import java.util.UUID;
 
 
-@Data
 
+@Getter
+@Setter
 @Entity
 public class Transaction {
 
