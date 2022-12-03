@@ -2,11 +2,15 @@ package com.driver.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 @Data
+@Getter
+@Setter
+
+@AllArgsConstructor
 @Entity
 public class Book {
 
