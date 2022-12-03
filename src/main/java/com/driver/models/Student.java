@@ -10,6 +10,7 @@ import java.util.Date;
 
 
 @Getter
+@AllArgsConstructor
 @Setter
 @Entity
 public class Student {
