@@ -12,6 +12,7 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
 
     @Column(unique = true)
@@ -25,6 +26,7 @@ public class Author {
     private List<Book> booksWritten;
 
     public Author() {
+
     }
 
 }
