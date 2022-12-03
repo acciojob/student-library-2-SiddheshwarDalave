@@ -7,10 +7,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
-@Data
+
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @RequiredArgsConstructor
 @Setter
 @Entity
