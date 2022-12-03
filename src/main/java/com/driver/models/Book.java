@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@AllArgsConstructor
+
 public class Book {
 
     @Id
