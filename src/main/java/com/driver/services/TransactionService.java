@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,6 +42,29 @@ public class TransactionService {
     public int fine_per_day;
 
     public String issueBook(int cardId, int bookId) throws Exception {
+        HashMap<Integer,Integer>  hm=new HashMap<>();
+        if(hm.size()<=0){
+            hm.put(cardId,1);
+        }
+        Card card=cardRepository5.findById(cardId).get();
+
+        for(int i=0;i<hm.size();i++){
+            if(hm.containsKey(cardId)){
+                hm.put(cardId,hm.get(cardId)+1);
+                if(hm.get(cardId)>3){
+                    card.setCardStatus(DEACTIVATED);
+                    cardRepository5.save(card);
+                    throw new Error("Book limit has reached for this card");
+                }
+            }else{
+                hm.put(cardId,1);
+            }
+        }
+
+
+
+
+
         //check whether bookId and cardId already exist
         //conditions required for successful transaction of issue book:
         //1. book is present and available
@@ -54,7 +78,7 @@ public class TransactionService {
         //Note that the error message should match exactly in all cases
         if(cardRepository5.existsById(cardId) && bookRepository5.existsById(bookId)){
             Book book=bookRepository5.findById(bookId).get();
-            Card card=cardRepository5.findById(cardId).get();
+
 
             if(book.isAvailable()==false){
                 throw new Error("Book is either unavailable or not present");
@@ -69,7 +93,6 @@ public class TransactionService {
 
         }
         Book book=bookRepository5.findById(bookId).get();
-        Card card=cardRepository5.findById(cardId).get();
 
 
 
